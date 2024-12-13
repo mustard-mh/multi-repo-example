@@ -39,15 +39,15 @@ ports:
     onOpen: open-browser
 
 jetbrains:
+  projects:
+    - /workspace/multi-repo-example/spring-petclinic
+    - /workspace/multi-repo-example/golang-cli
+    - /workspace/multi-repo-example/typescript-react
   intellij:
     plugins:
       - com.haulmont.jpab
     prebuilds:
       version: both
-    projects:
-      - /workspace/multi-repo-example/spring-petclinic
-      - /workspace/multi-repo-example/golang-cli
-      - /workspace/multi-repo-example/typescript-react
 
 vscode:
   extensions:
