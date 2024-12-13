@@ -1,0 +1,55 @@
+additionalRepositories:
+  - url: https://github.com/gitpod-samples/spring-petclinic
+    checkoutLocation: multi-repo-example/spring-petclinic
+  - url: https://github.com/gitpod-samples/template-golang-cli
+    checkoutLocation: multi-repo-example/golang-cli
+  - url: https://github.com/gitpod-samples/template-typescript-react
+    checkoutLocation: multi-repo-example/typescript-react
+
+tasks:
+  - name: PetClinic
+    before: |
+      cd spring-petclinic
+    init: |
+      ./mvnw clean install -U -DskipTests
+    command: |
+      ./mvnw spring-boot:run
+
+  - name: GoLang CLI
+    before: |
+      cd golang-cli
+    init: |
+      go get github.com/spf13/cobra/cobra
+      go build
+    command: |
+      ./mycli --help
+      
+  - name: React
+    before: |
+      cd typescript-react
+    init: yarn
+    command: yarn start
+
+ports:
+  - name: React (3000)
+    port: 3000
+    onOpen: open-browser
+  - name: PetClinic (8080)
+    port: 8080
+    onOpen: open-browser
+
+jetbrains:
+  intellij:
+    plugins:
+      - com.haulmont.jpab
+    prebuilds:
+      version: both
+    projects:
+      - /workspace/multi-repo-example/spring-petclinic
+      - /workspace/multi-repo-example/golang-cli
+      - /workspace/multi-repo-example/typescript-react
+
+vscode:
+  extensions:
+    - golang.go
+      
